@@ -1,0 +1,15 @@
+{
+  "name": "recipes-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "both": "concurrently \"npm run start\" \"nodemon back-end/index.js\""
+  },
+  "author": "Abhishek Kumar",
+  "license": "ISC"
+}
