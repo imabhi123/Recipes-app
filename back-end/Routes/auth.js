@@ -12,10 +12,14 @@ router.post('/createuser', [
   body('password').isLength({ min: 5 }),
   body('email').isEmail(),
 ], async (req, res) => {
+  console.log(body)
   //if there are errors,return bad request and the errors
   let success = false;
+  console.log('abhishek')
   const errors = validationResult(req);
+  console.log('abhishek')
   if (!errors.isEmpty()) {
+    console.log('abhishek')
     return res.status(400).json({ success, errors: errors.array() });
   }
   //check whether the user exists with this email 

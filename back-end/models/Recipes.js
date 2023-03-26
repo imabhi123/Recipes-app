@@ -23,4 +23,4 @@ const UserSchema=new Schema({
         default:Date.now
     },
 })
-module.exports=mongoose.model('notes',UserSchema);
+module.exports=mongoose.model('recipes',UserSchema);

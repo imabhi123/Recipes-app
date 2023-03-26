@@ -11,5 +11,5 @@ app.use('/api/auth',require('./routes/auth'));
 app.use('/api/recipes',require('./routes/recipes'));
 
 app.listen(port, () => {
-  console.log(`iNotebook backend listening on port ${port}`)
+  console.log(`Recipes backend listening on port ${port}`)
 })
