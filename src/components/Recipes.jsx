@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RecipeContext from '../context/RecipeContext';
+import recipeContext from '../context/RecipeContext';
 import AddRecipe from './AddRecipe';
 import RecipeItem from './RecipeItem';
 const Recipes = (props) => {
-  const context = useContext(RecipeContext);
+    const context = useContext(recipeContext);
   const { recipes, getRecipe,editRecipe} = context;
   const ref = useRef(null);
   const refClose = useRef(null);
@@ -22,13 +22,13 @@ const Recipes = (props) => {
   }, [])
   const updateRecipe = (currRecipe) => {
     ref.current.click();
-    setRecipe({id:currRecipe._id, etitle:currRecipe.title,edescription:currRecipe.description,etag:currRecipe.tag});
-    props.showAlert("Recipe Updated","successful");
+    setRecipe({id:currRecipe._id, ename:currRecipe.name,eurl:currRecipe.url,edescription:currRecipe.description});
+    props.showAlert("Note Updated","successful");
   }
-  const [recipe, setRecipe] = useState({id:"", etitle: "", edescription: "", etag: "" });
+  const [recipe, setRecipe] = useState({id:"", ename: "", eurl: "", edescription: "" });
   const handleClick = (e) => {
-    console.log("updating the recipe",recipe)
-    editRecipe(recipe.id,recipe.etitle,recipe.edescription,recipe.etag);
+    console.log("updating the note",recipe)
+    editRecipe(recipe.id,recipe.ename,recipe.eurl,recipe.edescription);
     refClose.current.click();
   }
   const onChange=(e)=>{
@@ -50,16 +50,16 @@ const Recipes = (props) => {
             <div className="modal-body">
             <form>
         <div className="mb-3">
-          <label htmlFor="etitle" className="form-label">title</label>
-          <input type="text" className="form-control" onChange={onChange} id="etitle" name='etitle' value={recipe.etitle} minLength={5} required/>
+          <label htmlFor="etitle" className="form-label">name</label>
+          <input type="text" className="form-control" onChange={onChange} id="etitle" name='etitle' value={recipe.ename} minLength={5} required/>
         </div>
         <div className="mb-3">
-          <label htmlFor="edescription" className="form-label">Description</label>
-          <input type="text" className="form-control" onChange={onChange} id="edescription" name='edescription' value={recipe.edescription}minLength={5} required/>
+          <label htmlFor="edescription" className="form-label">url</label>
+          <input type="text" className="form-control" onChange={onChange} id="edescription" name='edescription' value={recipes.url}minLength={5} required/>
         </div>
         <div className="mb-3">
-          <label htmlFor="etag" className="form-label">Tag</label>
-          <input type="text" className="form-control" onChange={onChange} id="etag" name='etag' value={recipe.etag}/>
+          <label htmlFor="etag" className="form-label">Description</label>
+          <input type="text" className="form-control" onChange={onChange} id="etag" name='etag' value={recipe.edescription}/>
         </div>
       </form> 
             </div>
@@ -73,10 +73,11 @@ const Recipes = (props) => {
       <div className="row my-3">
         <h2>Your Recipes</h2>
         <div className="container mx-24">
-          {recipes.length===0&&'No recipes to display'}
+          {recipes.length===0&&'No notes to display'}
         </div>
         {recipes.map((recipe) => {
-          return <RecipeItem recipe={recipe} updaterecipe={updateRecipe} key={recipe._id} />;
+            console.log(recipes)
+          return <RecipeItem recipe={recipe} updateRecipe={updateRecipe} key={recipe._id} />;
         })}
       </div>
     </div>
@@ -84,4 +85,3 @@ const Recipes = (props) => {
 }
 
 export default Recipes
-

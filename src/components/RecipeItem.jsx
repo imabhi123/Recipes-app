@@ -1,39 +1,35 @@
-import React, { useContext, useState } from 'react';
-import RecipeContext from '../context/RecipeContext';
-const AddRecipe = () => {
-  const context = useContext(RecipeContext);
-  const { addRecipe } = context;
-  const [recipe, setRecipe] = useState({ title: "", description: "", tag: "" });
-  const handleClick = (e) => {
-    e.preventDefault();
-    addRecipe(recipe.title, recipe.description, recipe.tag);
-    setRecipe({ title: "", description: "", tag: "" });
-  }
-  const onChange = (e) => {
-    setRecipe({ ...recipe, [e.target.name]: e.target.value });
-  }
+import React, { useContext } from 'react'
+import recipeContext from '../context/RecipeContext';
+import { Box,Typography,styled } from '@mui/material';
+
+const MainBox=styled(Box)`
+height:30vh;
+width:25vw;
+`
+const RecipeImage=styled('img')`
+height:55vh;
+width:60vh;
+`
+
+const RecipeItem = (props) => {
+  const context=useContext(recipeContext)
+  const {deleteRecipe}=context;
+  const {editRecipe}=context;
+    const {recipe,updateRecipe}=props;
+    console.log(recipe,'--->')
   return (
-    <div className='container my-3'>
-
-      <h1>Add a recipe</h1>
-      <form>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">title</label>
-          <input type="text" className="form-control" onChange={onChange} value={recipe.title} id="title" name='title' minLength={5} required />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
-          <input type="text" className="form-control" onChange={onChange} value={recipe.description} id="description" name='description' minLength={5} required />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="tag" className="form-label">Tag</label>
-          <input type="text" className="form-control" onChange={onChange} value={recipe.tag} id="tag" name='tag' minLength={5} required />
-        </div>
-        <button disabled={recipe.title.length < 5 || recipe.description.length < 5} type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
-      </form>
-
-    </div>
+    <MainBox>
+        <Box>
+        <Box>
+            <Typography variant='h6' style={{fontWeight:'bold'}}>{recipe.name}</Typography>
+            <RecipeImage src={recipe.url} alt="" />
+            <Typography>{recipe.description}</Typography>
+            <i className="fa-solid fa-trash mx-2" onClick={()=>{deleteRecipe(recipe._id)}}></i>
+            <i className="fa-solid fa-pen-to-square mx-2"onClick={()=>{updateRecipe(recipe)}}></i>
+        </Box>
+      </Box>
+      </MainBox>
   )
 }
 
-export default AddRecipe
+export default RecipeItem

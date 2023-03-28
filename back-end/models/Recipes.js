@@ -5,17 +5,17 @@ const UserSchema=new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'user'
     },
-    title:{
+    name:{
         type:String,
         required:true,
-        unique:true
     },
-    description:{
+    url:{
         type:String,
         required:true
     },
-    tag:{
+    description:{
         type:String,
+        required:true,
         default:'General'
     },
     date:{

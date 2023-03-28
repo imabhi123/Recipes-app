@@ -12,12 +12,10 @@ router.post('/createuser', [
   body('password').isLength({ min: 5 }),
   body('email').isEmail(),
 ], async (req, res) => {
-  console.log(body,'--->>')
   //if there are errors,return bad request and the errors
   let success = false;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log('abhishek')
     return res.status(400).json({ success, errors: errors.array() });
   }
   //check whether the user exists with this email 
@@ -45,7 +43,6 @@ router.post('/createuser', [
   }
   catch (error) {
     success = false;
-    console.error(error.message,'--->');
     res.status(500).send("some error occured")
   }
 })
@@ -82,7 +79,6 @@ router.post('/login', [
     success = true;
     res.json({ success, authToken });
   } catch (error) {
-    console.error(error.message);
     res.status(500).send("internal server error")
   }
 })
@@ -94,7 +90,6 @@ router.post('/getuser', fetchuser, async (req, res) => {
     const user = await User.findById(userId).select("-password");
     res.send(user);
   } catch (error) {
-    console.error(error.message);
     res.status(500).send("internal server error");
   }
 })

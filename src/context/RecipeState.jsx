@@ -18,16 +18,17 @@ const RecipeState=(props)=>{
         setRecipes(json);
       }
       //Add a Recipe
-      const addRecipe=async(title,description,tag)=>{
+      const addRecipe=async(name,url,description)=>{
         const response=await fetch(`${host}/api/recipes/addrecipe`,{
           method:'POST',
           headers:{
             'Content-Type':'Application/json',
             'auth-token':localStorage.getItem('token')
           },
-          body:JSON.stringify({title,description,tag})
+          body:JSON.stringify({name,url,description})
         })
         const recipe=await response.json();
+        console.log(recipe)
         setRecipes(recipes.concat(recipe));
       }
       //Delete a Recipe
@@ -45,22 +46,22 @@ const RecipeState=(props)=>{
         setRecipes(newRecipe);
       }
       //edit recipe
-      const editRecipe=async(id,title,description,tag)=>{
+      const editRecipe=async(id,title,url,description)=>{
         const response=await fetch(`${host}/api/recipes//updaterecipe/${id}`,{
           method:'PUT',
           headers:{
             'Content-Type':'Application/json',
             'auth-token':localStorage.getItem('token')
           },
-          body:JSON.stringify({title,description,tag})
+          body:JSON.stringify({title,url,description})
         })
         let newRecipes=JSON.parse(JSON.stringify(recipes))
         for(let i=0;i<newRecipes.length;i++){
           const element=newRecipes[i];
           if(element._id===id){
             newRecipes[i].title=title;
+            newRecipes[i].url=url;
             newRecipes[i].description=description;
-            newRecipes[i].tag=tag;
             break;
           }
         }
